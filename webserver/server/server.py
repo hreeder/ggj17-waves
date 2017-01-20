@@ -16,9 +16,11 @@ class Server:
             handlers=[
                 (r'/', MainAppHandler),
                 (r'/ws/client', EchoWebSocket),
-                (r'/ws/game', EchoWebSocket)
+                (r'/ws/game', EchoWebSocket),
+                (r'/static/(.*)', web.StaticFileHandler, {'path': os.path.join(os.path.dirname(__file__), "static")})
             ],
-            template_path=os.path.join(os.path.dirname(__file__), "templates")
+            template_path=os.path.join(os.path.dirname(__file__), "templates"),
+            debug=True
         )
         self.game = None
         self.client = None

@@ -7,4 +7,22 @@
 <body>
     <h1>Hello, World</h1>
 </body>
+<script>
+    var websocket = new WebSocket("ws://localhost:8888/ws/client");
+
+    websocket.onmessage = function(str) {
+      console.log("Someone sent: ", str);
+    };
+
+    // Tell the server this is client 1 (swap for client 2 of course)
+//    websocket.send(JSON.stringify({
+//      id: "client1"
+//    }));
+//
+//    // Tell the server we want to send something to the other client
+//    websocket.send(JSON.stringify({
+//      to: "client2",
+//      data: "foo"
+//    }));
+</script>
 </html>

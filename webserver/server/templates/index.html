@@ -30,12 +30,17 @@
           </div>
       </nav>
   </div>
-  <div class="container">
-      <div id="main-area">
-          <div id="start" style="text-align: center;">
-              <img src="static/images/start.png" alt="" />
-              <h3>Welcome to Nixons Angels</h3>
+  <div class="container-fluid">
+      <div class="col-md-10">
+          <div id="main-area">
+              <div id="start" style="text-align: center;">
+                  <img src="static/images/start.png" alt="" />
+                  <h3>Welcome to Nixons Angels</h3>
+              </div>
           </div>
+      </div>
+      <div class="col-md-2">
+        <div id="minimap-container"></div>
       </div>
   </div>
 </body>
@@ -44,6 +49,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.js"></script>
 <script src="static/scripts/websockets.js"></script>
 <script src="static/bower_components/sine-waves/sine-waves.js"></script>
+<script src="static/scripts/minimap.js"></script>
 <script src="static/scripts/puzzles/entry.js"></script>
 <script src="static/scripts/load.js"></script>
 </html>

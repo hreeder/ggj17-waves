@@ -22,6 +22,8 @@ function loadEntryPuzzle(msg) {
         ctx.clearRect(0,0,canvas.width, canvas.height);
 
         passed();
+
+        loadMinimap();
     });
 }
 

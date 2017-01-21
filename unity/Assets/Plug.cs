@@ -18,7 +18,7 @@ public class Plug : MonoBehaviour {
         if (other.CompareTag("pluggable"))
         {
             HingeJoint hinge = other.gameObject.AddComponent<HingeJoint>();
-            hinge.breakForce = 10;
+            hinge.breakForce = 20;
             hinge.connectedBody = GetComponent<Rigidbody>();
         }
     }

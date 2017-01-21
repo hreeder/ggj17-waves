@@ -8,7 +8,8 @@ function loadEntryPuzzle(msg) {
     window.entryTargetFrequency = msg.frequency;
     window.entryTargetPhase = msg.phase;
 
-    $('#waves').css({'border':'2px black solid'});
+    $('#waves').css({'border':'2px black solid',
+                    'background-image':'url("static/images/grid.png")'});
 
     // Setup
     create_wave();

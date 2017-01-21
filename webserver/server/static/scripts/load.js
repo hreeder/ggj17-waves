@@ -34,7 +34,7 @@ $(function(){
             var tpl = Handlebars.compile(tpl_source);
             $('#main-area').html(tpl());
             if (level === "puzzle-entry") {
-                loadEntryPuzzle();
+                loadEntryPuzzle(data);
             }
         });
     });

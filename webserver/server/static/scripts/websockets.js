@@ -31,7 +31,7 @@ function addWebsocketCallback(event, callback) {
 }
 
 function addActionCallback(level, callback) {
-    actionCallbacks[event] = actionCallbacks[event] || [];
-    actionCallbacks[event].push(callback);
+    actionCallbacks[level] = actionCallbacks[level] || [];
+    actionCallbacks[level].push(callback);
     return this;// chainable
 }

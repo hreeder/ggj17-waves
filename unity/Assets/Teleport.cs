@@ -46,7 +46,7 @@ namespace NewtonVR.Example
 
         private void LateUpdate()
         {
-            Line.enabled = (Hand != null && Hand.Inputs[NVRButtons.Trigger].SingleAxis > 0.01f);
+            Line.enabled = (Hand != null && Hand.Inputs[NVRButtons.Trigger].SingleAxis > 0.05f);
 
             if (Line.enabled == true)
             {

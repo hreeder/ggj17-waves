@@ -35,7 +35,9 @@ class GameSocket(websocket.WebSocketHandler):
 
     def start_game(self, message):
         """ TODO: Start Game """
-        pass
+        self.application.ctxt.client.write_message(json.dumps({
+            "event": "start-game"
+        }))
 
     def load_level(self, message):
         self.application.ctxt.client.write_message(json.dumps({

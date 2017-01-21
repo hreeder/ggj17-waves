@@ -21,7 +21,26 @@ $(function(){
         $('#waves').css({'border':'2px black solid'});
 
     })
+    addWebsocketCallback('waiting-game', function(data) {
 
+    });
+
+    addWebsocketCallback('ready', function(data) {
+
+    });
+
+    addWebsocketCallback('start-game', function(data) {
+        getTemplate("puzzle-entry", function(tpl_source) {
+            var tpl = Handlebars.compile(tpl_source);
+            $('#container').html(tpl({
+                title: "Test",
+                body: "testtesttest"
+            }));
+            setTimeout(function() {
+                create_wave();
+            }, 500);
+        });
+    });
     getTemplate("header", function(tpl_source) {
         var tpl = Handlebars.compile(tpl_source);
         $('#header').html(tpl({

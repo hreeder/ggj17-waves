@@ -25,7 +25,7 @@ $(function(){
         getTemplate(level, function(tpl_source) {
             var tpl = Handlebars.compile(tpl_source);
             $('#main-area').html(tpl());
-            if (level === "entry") {
+            if (level === "puzzle-entry") {
                 loadEntryPuzzle();
             }
         });

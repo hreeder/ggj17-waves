@@ -22,6 +22,11 @@ function loadEntryPuzzle(msg) {
         ctx.clearRect(0,0,canvas.width, canvas.height);
 
         passed();
+
+        getTemplate('minimap', function(tpl_source){
+            var tpl = Handlebars.compile(tpl_source);
+            $('#minimap-container').html(tpl());
+        });
     });
 }
 

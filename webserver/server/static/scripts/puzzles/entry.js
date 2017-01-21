@@ -9,7 +9,7 @@ function loadEntryPuzzle(msg) {
     window.entryTargetPhase = msg.phase;
 
     $('#waves').css({'border':'2px black solid',
-                    'background-image':'url("static/images/grid.png")'});
+                    'background-image':'url("static/images/grid2.png")'});
 
     // Setup
     create_wave();
@@ -27,9 +27,9 @@ function loadEntryPuzzle(msg) {
 
 function manipulateWave(msg) {
     console.log(msg);
-    window.entryTargetAmplitude = msg.amplitude;
-    window.entryTargetFrequency = msg.frequency;
-    window.entryTargetPhase = msg.phase;
+    window.entryAmplitude = msg.amplitude;
+    window.entryFrequency = msg.frequency;
+    window.entryPhase = msg.phase;
 }
 
 function create_wave() {
@@ -56,6 +56,7 @@ function create_wave() {
             {
                 timeModifier: 1,
                 lineWidth: 8,
+                strokeStyle: 'rgba(140, 140, 140, 0.75)',
                 type: function (x, waves) {
                     return window.entryAmplitude * Math.sin(window.entryFrequency * x + window.entryPhase);
                 }

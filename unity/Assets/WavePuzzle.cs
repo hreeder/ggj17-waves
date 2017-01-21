@@ -8,6 +8,8 @@ public class WavePuzzle : MonoBehaviour {
     public float frequency = 0.0f;
     public float phase = 0.0f;
 
+    public GameObject particles;
+
     private enum SLIDER
     {
         AMPLITUDE = 0,
@@ -53,7 +55,7 @@ public class WavePuzzle : MonoBehaviour {
 
     public void tellHacker()
     {
-
+        particles.SetActive(true);
     }
 
     private float sliderVal(SLIDER s)

@@ -19,7 +19,7 @@ public class Plug : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider other) {
-        if (other.CompareTag("Pluggable"))
+        if (other.CompareTag("pluggable"))
         {
             attatched = other.gameObject;
         }

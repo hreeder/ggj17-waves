@@ -44,10 +44,7 @@ class GameSocket(websocket.WebSocketHandler):
         }))
 
     def load_level(self, message):
-        self.application.ctxt.client.write_message(json.dumps({
-            "event": "load-level",
-            "level": message['level']
-        }))
+        self.application.ctxt.client.write_message(message)
 
     def action(self, message):
         self.application.ctxt.client.write_message(message)

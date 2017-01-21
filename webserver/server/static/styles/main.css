@@ -1,0 +1,9 @@
+#main-area {
+    height: 500px;
+}
+
+.images {
+    background: url('../images/glitch_text.png');
+    position: absolute;
+    animation: slideshow 10s linear infinite;
+}

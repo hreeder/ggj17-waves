@@ -12,7 +12,8 @@ class GameSocket(websocket.WebSocketHandler):
         self.application.ctxt.game = self
         self.events = {
             "start-game": self.start_game,
-            "load-level": self.load_level
+            "load-level": self.load_level,
+            "action": self.action
         }
 
         if self.application.ctxt.is_ready():
@@ -48,3 +49,6 @@ class GameSocket(websocket.WebSocketHandler):
             "event": "load-level",
             "level": message['level']
         }))
+
+    def action(self, message):
+        self.application.ctxt.client.write_message(message)

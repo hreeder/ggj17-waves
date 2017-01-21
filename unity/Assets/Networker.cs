@@ -28,24 +28,7 @@ public class Networker : MonoBehaviour {
         evt_pluggedin.frequency = 5.0f;
         evt_pluggedin.phase = 5.0f;
         ws.SendString(evt_pluggedin.getJSON());
-
-        Thread.Sleep(1000);
-
-        WaveformActionObject evt_update = new WaveformActionObject();
-        evt_update.level = "puzzle-entry-wave";
-        evt_update.amplitude = 5.0f;
-        evt_update.frequency = 5.0f;
-        evt_update.phase = 5.0f;
-        ws.SendString(evt_update.getJSON());
-
-        Thread.Sleep(1000);
-
-        WaveformActionObject evt_correct = new WaveformActionObject();
-        evt_correct.level = "puzzle-entry-correct";
-        evt_correct.amplitude = 5.0f;
-        evt_correct.frequency = 5.0f;
-        evt_correct.phase = 5.0f;
-        ws.SendString(evt_correct.getJSON());
+        
 
         // Receiver Loop
         while (true)

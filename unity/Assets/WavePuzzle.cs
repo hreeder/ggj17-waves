@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class WavePuzzle : MonoBehaviour {
 
+    public Networker networker;
+
     public float amplitude = 0.0f;
     public float frequency = 0.0f;
     public float phase = 0.0f;
@@ -37,6 +39,10 @@ public class WavePuzzle : MonoBehaviour {
     private NewtonVR.NVRSlider freSlider;
     private NewtonVR.NVRSlider phaSlider;
 
+    private float correctAmplitude = 5.0f;
+    private float correctFrequency = 5.0f;
+    private float correctPhase = 5.0f;
+
     // Use this for initialization
     void Start () {
         ampSlider = this.transform.FindChild("Amplitude").FindChild("Slider").GetComponent<NewtonVR.NVRSlider>();
@@ -47,15 +53,46 @@ public class WavePuzzle : MonoBehaviour {
         sliderInfo[1] = new SliderInfo(false, 0.0f, 7.0f); // Frequency
         sliderInfo[2] = new SliderInfo(false, 0.0f, 360.0f); // Phase
 
+        networker = this.gameObject.transform.Find("Networker").GetComponent<Networker>();
+
         for (int i = 0; i < sliderInfo.Length; i++)
         {
             sliderInfo[i].flipped = Random.Range(0, 100) < 50;
         }
+
+        WaveformActionObject evt_pluggedin = new WaveformActionObject();
+        evt_pluggedin._event = "load-level";
+        evt_pluggedin.level = "puzzle-entry";
+        evt_pluggedin.amplitude = 5.0f;
+        evt_pluggedin.frequency = 5.0f;
+        evt_pluggedin.phase = 5.0f;
+        networker.ws.SendString(evt_pluggedin.getJSON());
+
     }
 
     public void tellHacker()
     {
         particles.SetActive(true);
+
+        WaveformActionObject evt_update = new WaveformActionObject();
+        evt_update.level = "puzzle-entry-wave";
+        evt_update.amplitude = this.amplitude;
+        evt_update.frequency = this.frequency;
+        evt_update.phase = this.phase;
+        networker.ws.SendString(evt_update.getJSON());
+
+        if (Mathf.Abs(this.amplitude - this.correctAmplitude)/correctAmplitude < 0.1f
+            && Mathf.Abs(this.frequency - this.correctFrequency) / correctFrequency < 0.1f
+            && Mathf.Abs(this.phase - this.correctPhase) / correctPhase < 0.1f)
+        {
+            WaveformActionObject evt_correct = new WaveformActionObject();
+            evt_correct.level = "puzzle-entry-correct";
+            evt_correct.amplitude = this.correctAmplitude;
+            evt_correct.frequency = this.correctFrequency;
+            evt_correct.phase = this.correctPhase;
+            networker.ws.SendString(evt_correct.getJSON());
+        }
+        
     }
 
     private float sliderVal(SLIDER s)

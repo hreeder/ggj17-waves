@@ -11,12 +11,19 @@ public class Plug : MonoBehaviour {
 		
 	}
 	
+    public void unplug()
+    {
+        Rigidbody r = attatched.GetComponent<Rigidbody>();
+        r.AddForce(2, 2, 2);
+        attatched = null;
+    }
+
 	// Update is called once per frame
 	void Update () {
-		if(attatched != null){
+        if(attatched != null){
 			attatched.transform.position = this.transform.position;
 		}
-	}
+    }
 
 	void OnTriggerEnter(Collider other) {
         if (other.CompareTag("pluggable"))

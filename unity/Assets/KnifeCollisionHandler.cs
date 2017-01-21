@@ -26,8 +26,9 @@ public class KnifeCollisionHandler : MonoBehaviour {
         if (this.gameObject.GetComponent<FixedJoint>() == null && collision.contacts[0].thisCollider == blade)
         {
             FixedJoint fixJoint = this.gameObject.AddComponent<FixedJoint>();
-            //fixJoint.connectedBody = other.gameObject.GetComponent<Rigidbody>();
-            fixJoint.breakForce = 100;
+            if(collision.collider.GetComponent<Rigidbody>() != null)
+                fixJoint.connectedBody = collision.collider.gameObject.GetComponent<Rigidbody>();
+            fixJoint.breakForce = 150;
         }
     }
 }

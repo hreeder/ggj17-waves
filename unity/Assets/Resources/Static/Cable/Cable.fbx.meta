@@ -33,6 +33,8 @@ ModelImporter:
     7400002: Armature.Lower|Armature.LowerAction
     7400004: Armature.Higher|Armature.HigherAction
     7400006: Armature.Higher|Armature.LowerAction
+    7400008: Armature.Lower|Cut
+    7400010: Armature.Higher|Cut
     9500000: //RootNode
     13700000: Cable_Lower
     13700002: Cable_Upper

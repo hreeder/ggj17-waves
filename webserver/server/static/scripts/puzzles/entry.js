@@ -1,6 +1,11 @@
 function loadEntryPuzzle() {
     create_wave();
     $('#waves').css({'border':'2px black solid'});
+    addActionCallback('puzzle-entry', manipulateWave);
+}
+
+function manipulateWave(action) {
+    console.log(action);
 }
 
 function create_wave() {

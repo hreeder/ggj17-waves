@@ -1,0 +1,21 @@
+{
+  "name": "ggh17-waves",
+  "homepage": "https://github.com/hreeder/ggj17-waves",
+  "authors": [
+    "Marcin Szczot <mszczot@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "sine-waves": "^0.3.0"
+  }
+}

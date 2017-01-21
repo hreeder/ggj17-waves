@@ -21,7 +21,7 @@ $(function(){
     });
 
     addWebsocketCallback('start-game', function(data) {
-        $('#system-message').text("");
+        $('#system-message').text("Connected");
        getTemplate('started', function(tpl_src) {
            var tpl = Handlebars.compile(tpl_src);
            $('#main-area').html(tpl());

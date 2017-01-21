@@ -1,7 +1,27 @@
+#scroller {
+    height: 750px;
+    position: relative;
+    overflow: hidden;
+
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+}
+
 #disconnected-bg {
-    height: 600px;
-    background-image: url('/static/images/noconnection.png');
-    background-size: cover;
+    left: 0;
+    top: 0;
+    height: 500%;
+    width: 100%;
+    position: absolute;
+    background: url('/static/images/glitch_text_trans.png');
+    animation: slideshow 60s linear infinite;
+}
+
+@keyframes slideshow {
+    0%    { top: 0; }
+    50%  { top: -200%; }
+    50%  { top: -400%; }
 }
 
 #disconnected-textbg {
@@ -10,7 +30,7 @@
     padding: 25px;
     padding-bottom: 15px;
     background: black;
-    position: absolute;
+    position: fixed;
     width: auto;
 
     -webkit-border-radius: 15px;

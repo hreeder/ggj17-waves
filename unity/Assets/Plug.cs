@@ -19,6 +19,7 @@ public class Plug : MonoBehaviour {
         {
             HingeJoint hinge = other.gameObject.AddComponent<HingeJoint>();
             hinge.breakForce = 10;
+            hinge.connectedBody = GetComponent<Rigidbody>();
         }
     }
 

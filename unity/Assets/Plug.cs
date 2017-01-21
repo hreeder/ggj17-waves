@@ -11,14 +11,13 @@ public class Plug : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-
     }
 
 	void OnTriggerEnter(Collider other) {
         if (other.CompareTag("pluggable"))
         {
             HingeJoint hinge = other.gameObject.AddComponent<HingeJoint>();
-            hinge.breakForce = 20;
+            hinge.breakForce = 100;
             hinge.connectedBody = GetComponent<Rigidbody>();
         }
     }

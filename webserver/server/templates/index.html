@@ -15,26 +15,9 @@
       <div id="container"></div>
   </div>
 </body>
-<script>
-    var websocket = new WebSocket("ws://localhost:8888/ws/client");
-
-    websocket.onmessage = function(str) {
-      console.log("Someone sent: ", str);
-    };
-
-    // Tell the server this is client 1 (swap for client 2 of course)
-//    websocket.send(JSON.stringify({
-//      id: "client1"
-//    }));
-//
-//    // Tell the server we want to send something to the other client
-//    websocket.send(JSON.stringify({
-//      to: "client2",
-//      data: "foo"
-//    }));
-</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.js"></script>
+<script src="static/scripts/websockets.js"></script>
 <script src="static/scripts/load.js"></script>
 </html>

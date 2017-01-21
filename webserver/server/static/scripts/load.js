@@ -10,6 +10,7 @@ function getTemplate(templateName, callback) {
 }
 
 $(function(){
+    startWebsocket();
     getTemplate("test", function(tpl_source) {
         var tpl = Handlebars.compile(tpl_source);
         $('#container').html(tpl({

@@ -1,16 +1,27 @@
 import json
+import logging
 
 from tornado import websocket
 
+logger = logging.getLogger(__name__)
 
-class EchoWebSocket(websocket.WebSocketHandler):
-    actions = {
-        "DEBUG-reset": self.debug_reset
-    }
 
+class ClientSocket(websocket.WebSocketHandler):
     def open(self):
-        print("WebSocket opened")
-        self.application.client = self
+        logger.debug("Client WebSocket opened")
+        self.application.ctxt.client = self
+        self.actions = {
+            "DEBUG-reset": self.debug_reset
+        }
+
+        if self.application.ctxt.is_ready():
+            self.application.ctxt.send_both(json.dumps({
+                "event": "ready"
+            }))
+        else:
+            self.write_message(json.dumps({
+                "event": "waiting-game"
+            }))
 
     def on_message(self, message):
         data = json.loads(message)
@@ -19,8 +30,8 @@ class EchoWebSocket(websocket.WebSocketHandler):
             self.actions[action](message)
 
     def on_close(self):
-        print("WebSocket closed")
+        logger.debug("WebSocket closed")
 
     def debug_reset(self):
-        self.application.client = None
+        self.application.ctxt.client = None
         self.close()

@@ -1,0 +1,11 @@
+newmtl None
+Ns 100.000
+d 1.00000
+illum 2
+Kd 1.00000 1.00000 1.00000
+Ka 0.00000 0.00000 0.00000
+Ks 1.00000 1.00000 1.00000
+Ke 0.00000e+0 0.00000e+0 0.00000e+0
+map_Kd CableTray_None_color.tga
+map_Ks CableTray_None_rough.tga
+map_bump CableTray_None_nmap.tga

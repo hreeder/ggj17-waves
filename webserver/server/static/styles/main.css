@@ -1,0 +1,22 @@
+#main-area {
+    height: 500px;
+}
+
+.slideshow {
+    height: 500px;
+    position: relative;
+    overflow: hidden;
+}
+.images {
+    background: url('../images/glitch_text.png');
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 500%;
+    width: 100%;
+    animation: slideshow 10s linear infinite;
+}
+@keyframes slideshow {
+    0%    { top: 0; }
+    100%  { top: -200%; }
+}

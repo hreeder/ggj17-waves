@@ -23,10 +23,7 @@ function loadEntryPuzzle(msg) {
 
         passed();
 
-        getTemplate('minimap', function(tpl_source){
-            var tpl = Handlebars.compile(tpl_source);
-            $('#minimap-container').html(tpl());
-        });
+        loadMinimap();
     });
 }
 

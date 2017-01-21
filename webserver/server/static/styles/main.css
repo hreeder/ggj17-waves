@@ -7,6 +7,9 @@
     position: absolute;
     animation: slideshow 10s linear infinite;
 }
+#minimap-container {
+    background: url('/static/images/grid_for_floors.png');
+}
 
 #full_map {
     width: 150px;

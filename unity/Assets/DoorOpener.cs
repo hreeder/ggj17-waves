@@ -19,8 +19,8 @@ public class DoorOpener : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        door0Start = door0.position;
-        door1Start = door1.position;
+        door0Start = door0.localPosition;
+        door1Start = door1.localPosition;
 
         inputInfo = this.GetComponent<NewtonVR.NVRButton>();
     }
@@ -57,8 +57,8 @@ public class DoorOpener : MonoBehaviour {
         {
             if (isOpen)
             {
-                door0.position = door0Start - door0.right * (Mathf.Sin(timeDelta) * 0.3f + 0.3f);
-                door1.position = door1Start - door1.right * (Mathf.Sin(timeDelta) * 0.3f + 0.3f);
+                door0.localPosition = door0Start - door0.right * (Mathf.Sin(timeDelta) * 0.3f + 0.3f);
+                door1.localPosition = door1Start - door1.right * (Mathf.Sin(timeDelta) * 0.3f + 0.3f);
                 timeDelta += Time.deltaTime;
 
                 if (timeDelta >= 1.0f)
@@ -73,10 +73,6 @@ public class DoorOpener : MonoBehaviour {
                 if (timeDelta <= 0.0f)
                     moving = false;
             }
-        }
-        if (inputInfo.ButtonDown)
-        {
-            toggle();
         }
     }
 }

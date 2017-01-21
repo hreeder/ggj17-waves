@@ -10,7 +10,7 @@ class GameSocket(websocket.WebSocketHandler):
     def open(self):
         logger.debug("Game WebSocket opened")
         self.application.ctxt.game = self
-        self.actions = {
+        self.events = {
             "start-game": self.start_game,
             "load-level": self.load_level
         }
@@ -24,19 +24,23 @@ class GameSocket(websocket.WebSocketHandler):
                 "event": "waiting-client"
             }))
 
+    def check_origin(self, origin):
+        return True
+
     def on_message(self, message):
         data = json.loads(message)
-        if "action" in data and data["action"] in self.actions:
-            action = data["action"]
-            self.actions[action](message)
+        logger.debug(data)
+        if "event" in data and data["event"] in self.events:
+            event = data["event"]
+            self.events[event](message)
 
     def on_close(self):
         logger.debug("WebSocket closed")
 
     def start_game(self, message):
-        """ TODO: Start Game """
         self.application.ctxt.client.write_message(json.dumps({
-            "event": "start-game"
+            "event": "load-level",
+            "level": "puzzle-entry"
         }))
 
     def load_level(self, message):

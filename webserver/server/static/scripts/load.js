@@ -11,44 +11,27 @@ function getTemplate(templateName, callback) {
 
 $(function(){
     startWebsocket();
-    getTemplate("puzzle-entry", function(tpl_source) {
-        var tpl = Handlebars.compile(tpl_source);
-        $('#container').html(tpl({
-            title: "Test",
-            body: "testtesttest"
-        }))
-        create_wave();
-        $('#waves').css({'border':'2px black solid'});
 
-    })
     addWebsocketCallback('waiting-game', function(data) {
-
+        $('#system-message').text("Waiting for the game to connect");
     });
 
     addWebsocketCallback('ready', function(data) {
-
+        $('#system-message').text("Waiting for the VR player to start the game");
     });
 
-    addWebsocketCallback('start-game', function(data) {
-        getTemplate("puzzle-entry", function(tpl_source) {
+    addWebsocketCallback('load-level', function(data) {
+        var level = data.level;
+        getTemplate(level, function(tpl_source) {
             var tpl = Handlebars.compile(tpl_source);
-            $('#container').html(tpl({
+            $('#main-area').html(tpl({
                 title: "Test",
                 body: "testtesttest"
-            }));
-            setTimeout(function() {
-                create_wave();
-            }, 500);
+            }))
+            create_wave();
+            $('#waves').css({'border':'2px black solid'});
         });
     });
-    getTemplate("header", function(tpl_source) {
-        var tpl = Handlebars.compile(tpl_source);
-        $('#header').html(tpl({
-
-        }))
-    })
-
-
 });
 
 
@@ -57,7 +40,7 @@ function create_wave() {
         el: document.getElementById('waves'),
         speed: 2,
         width: function() {
-            return $(window).width()*0.8;
+            return $('#main-area').width();
         },
         height: function() {
             return $(window).height()*0.7;

@@ -10,7 +10,7 @@ class ClientSocket(websocket.WebSocketHandler):
     def open(self):
         logger.debug("Client WebSocket opened")
         self.application.ctxt.client = self
-        self.actions = {
+        self.events = {
             "DEBUG-reset": self.debug_reset
         }
 
@@ -25,9 +25,9 @@ class ClientSocket(websocket.WebSocketHandler):
 
     def on_message(self, message):
         data = json.loads(message)
-        if "action" in data and data["action"] in self.actions:
-            action = data["action"]
-            self.actions[action](message)
+        if "event" in data and data["event"] in self.events:
+            event = data["event"]
+            self.events[event](message)
 
     def on_close(self):
         logger.debug("WebSocket closed")

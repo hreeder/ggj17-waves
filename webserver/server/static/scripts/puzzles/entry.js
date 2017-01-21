@@ -15,14 +15,21 @@ function loadEntryPuzzle(msg) {
     create_wave();
 
     // Add callbacks
-    addActionCallback('puzzle-entry', manipulateWave);
+    addActionCallback('puzzle-entry-wave', manipulateWave);
+    addActionCallback('puzzle-entry-correct', function(msg){
+        var canvas = document.getElementById('waves'),
+            ctx = canvas.getContext('2d');
+        ctx.clearRect(0,0,canvas.width, canvas.height);
+
+        passed();
+    });
 }
 
 function manipulateWave(msg) {
     console.log(msg);
-    window.entryAmplitude = msg.amplitude;
-    window.entryFrequency = msg.frequency;
-    window.entryPhase = msg.phase;
+    window.entryTargetAmplitude = msg.amplitude;
+    window.entryTargetFrequency = msg.frequency;
+    window.entryTargetPhase = msg.phase;
 }
 
 function create_wave() {
@@ -44,6 +51,38 @@ function create_wave() {
                 strokeStyle: 'rgba(255, 0, 0, 1)',
                 type: function(x, waves) {
                     return window.entryTargetAmplitude * Math.sin(window.entryTargetFrequency * x + window.entryTargetPhase);
+                }
+            },
+            {
+                timeModifier: 1,
+                lineWidth: 8,
+                type: function (x, waves) {
+                    return window.entryAmplitude * Math.sin(window.entryFrequency * x + window.entryPhase);
+                }
+            },
+        ]
+    });
+}
+
+function passed() {
+    var waves = new SineWaves({
+        el: document.getElementById('waves'),
+        speed: 2,
+        width: function() {
+            return $('#main-area').width();
+        },
+        height: function() {
+            return $(window).height()*0.7;
+        },
+        wavesWidth: '105%',
+        ease: 'Linear',
+        waves: [
+            {
+                timeModifier: 1,
+                lineWidth: 2,
+                strokeStyle: 'rgba(0, 250, 0, 1)',
+                type: function(x, waves) {
+                    return window.entryAmplitude * Math.sin(window.entryFrequency * x + window.entryPhase);
                 }
             },
             {

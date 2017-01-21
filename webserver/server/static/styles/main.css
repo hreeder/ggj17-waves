@@ -7,3 +7,14 @@
     position: absolute;
     animation: slideshow 10s linear infinite;
 }
+
+#full_map {
+    width: 150px;
+    height: 150px;
+}
+
+#minimap-container:hover {
+    -webkit-box-shadow: 5px 4px 12px 0px rgba(2, 172, 0, 0.74);
+    -moz-box-shadow:    5px 4px 12px 0px rgba(2, 172, 0, 0.74);
+    box-shadow:         5px 4px 12px 0px rgba(2, 172, 0, 0.74);
+}

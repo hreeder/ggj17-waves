@@ -20,6 +20,14 @@ $(function(){
         $('#system-message').text("Waiting for the VR player to start the game");
     });
 
+    addWebsocketCallback('start-game', function(data) {
+        $('#system-message').text("");
+       getTemplate('started', function(tpl_src) {
+           var tpl = Handlebars.compile(tpl_src);
+           $('#main-area').html(tpl());
+       });
+    });
+
     addWebsocketCallback('load-level', function(data) {
         var level = data.level;
         getTemplate(level, function(tpl_source) {

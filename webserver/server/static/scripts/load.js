@@ -28,6 +28,11 @@ $(function(){
        });
     });
 
+    addWebsocketCallback('play-sound', function(data) {
+       var snd = new Audio("/static/sounds/" + data.file);
+       snd.play();
+    });
+
     addWebsocketCallback('load-level', function(data) {
         var level = data.level;
         getTemplate(level, function(tpl_source) {

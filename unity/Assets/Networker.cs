@@ -41,6 +41,10 @@ public class Networker : MonoBehaviour {
                         // Deserialize the entire action
                         HandleIncomingAction(incoming);
                         break;
+                    case "play-sound":
+                        PlaySoundObject playSound = JsonUtility.FromJson<PlaySoundObject>(incoming);
+                        // trigger playSound.file
+                        break;
                     default:
                         Debug.Log("Received Unknown Event via WebSocket - " + incEvt._event);
                         break;

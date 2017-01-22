@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.AI;
 
 public class Networker : MonoBehaviour {
 
@@ -67,6 +68,16 @@ public class Networker : MonoBehaviour {
             case "puzzle-map-click":
                 GridClickAction gca = JsonUtility.FromJson<GridClickAction>(message);
                 Debug.Log("Grid clicked at " + gca.x + ", " + gca.y);
+                GameObject target = GameObject.Find("Target");
+                if (target != null)
+                {
+                    target.transform.position = new Vector3(gca.x, 1, gca.y);
+
+                    GameObject gman0 = GameObject.Find("Gman");
+                    gman0.GetComponent<EnemyNav>().target = target.transform;
+                    GameObject gman1 = GameObject.Find("Gman (1)");
+                    gman1.GetComponent<EnemyNav>().target = target.transform;
+                }
                 break;
             default:
                 Debug.Log("Received Unknown Action - " + incAction.level);

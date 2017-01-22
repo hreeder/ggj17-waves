@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.AI;
 
 public class WavePuzzle : MonoBehaviour {
 
@@ -161,6 +162,11 @@ public class WavePuzzle : MonoBehaviour {
 
             onCompleted.Invoke();
 
+            GameObject gman0 = GameObject.Find("Gman");
+            gman0.GetComponent<NavMeshAgent>().speed *= 1.1f;
+            GameObject gman1 = GameObject.Find("Gman (1)");
+            gman1.GetComponent<NavMeshAgent>().speed *= 1.1f;
+            
             int numChildren = this.gameObject.transform.childCount;
             for(int i = 0; i < numChildren; i++){
                 Transform child = this.gameObject.transform.GetChild(i);
@@ -213,6 +219,8 @@ public class WavePuzzle : MonoBehaviour {
 
         if(curr[0] != amplitude || curr[1] != frequency || curr[2] != phase)
             tellHacker();
+
+
     }
 
     void OnTriggerStay(Collider collider){
@@ -220,15 +228,14 @@ public class WavePuzzle : MonoBehaviour {
             if(networker != null){
                 if(!allowUpdate){
 
-                    Debug.Log("test");
+
                     GameObject cable = GameObject.Find("Cable");
                     if (cable == null)
                         return;
-                    Debug.Log("test1");
+
                     CableHandler cbHandler = cable.GetComponent<CableHandler>();
                     if (cbHandler == null || !cbHandler.isConnected)
                         return;
-                    Debug.Log("test2");
 
                     WaveformActionObject evt_pluggedin = new WaveformActionObject();
                     evt_pluggedin._event = "load-level";

@@ -23,6 +23,8 @@ public class WavePuzzle : MonoBehaviour {
 
     private Networker networker;
 
+    public bool allowUpdate = false;
+
 
     private enum SLIDER
     {
@@ -51,9 +53,9 @@ public class WavePuzzle : MonoBehaviour {
     private NewtonVR.NVRSlider freSlider;
     private NewtonVR.NVRSlider phaSlider;
 
-    private float correctAmplitude = 1.0f;
-    private float correctFrequency = 1.0f;
-    private float correctPhase = 4.0f;
+    public float correctAmplitude = 1.0f;
+    public float correctFrequency = 1.0f;
+    public float correctPhase = 4.0f;
 
     private bool startedLevel;
 
@@ -69,7 +71,7 @@ public class WavePuzzle : MonoBehaviour {
         correctFrequency = Mathf.Round(Random.Range(sliderInfo[1].min, sliderInfo[1].max) * 10.0f) / 10.0f;
         correctPhase = Mathf.Round(Random.Range(sliderInfo[2].min, sliderInfo[2].max) * 10.0f) / 10.0f;
 
-        sliderUnused = Random.Range(0, 3);
+        sliderUnused = 2;//Random.Range(0, 3);
         switch(sliderUnused){
             case 0:
                 this.transform.FindChild("Amplitude").gameObject.SetActive(false);
@@ -120,12 +122,11 @@ public class WavePuzzle : MonoBehaviour {
         evt_pluggedin.frequency = this.correctFrequency;
         evt_pluggedin.phase = this.correctFrequency;
         networker.ws.SendString(evt_pluggedin.getJSON());
-
     }
 
     public void tellHacker()
     {
-        if(networker == null || isComplete)
+        if(networker == null || isComplete || !allowUpdate)
             return;
 
         WaveformActionObject evt_update = new WaveformActionObject();
@@ -136,9 +137,9 @@ public class WavePuzzle : MonoBehaviour {
         networker.ws.SendString(evt_update.getJSON());
 
 
-        if (Mathf.Abs(this.amplitude - this.correctAmplitude)/correctAmplitude < 0.1f
-            && Mathf.Abs(this.frequency - this.correctFrequency) / correctFrequency < 0.1f
-            && Mathf.Abs(this.phase - this.correctPhase) / correctPhase < 0.1f)
+        if (Mathf.Abs(this.amplitude - this.correctAmplitude)/correctAmplitude < 0.2f
+            && Mathf.Abs(this.frequency - this.correctFrequency) / correctFrequency < 0.2f
+            && Mathf.Abs(this.phase - this.correctPhase) / correctPhase < 0.2f)
         {
             WaveformActionObject evt_correct = new WaveformActionObject();
             evt_correct.level = "puzzle-entry-correct";
@@ -174,19 +175,19 @@ public class WavePuzzle : MonoBehaviour {
         {
             case SLIDER.AMPLITUDE:
                 if(sliderUnused == 0)
-                    return amplitude;
+                    return correctAmplitude;
                 result = sliderInfo[0].min + (sliderInfo[0].max - sliderInfo[0].min) * Mathf.Clamp((sliderInfo[0].flipped ? (1 - ampSlider.CurrentValue) : ampSlider.CurrentValue), 0.0f, 1.0f);
                 result = Mathf.Round(result * 10.0f) / 10.0f;
                 return result;
             case SLIDER.FREQUENCY:
                 if(sliderUnused == 1)
-                    return frequency;
+                    return correctFrequency;
                 result = sliderInfo[1].min + (sliderInfo[1].max - sliderInfo[1].min) * Mathf.Clamp((sliderInfo[1].flipped ? (1 - freSlider.CurrentValue) : freSlider.CurrentValue), 0.0f, 1.0f);
                 result = Mathf.Round(result * 10.0f) / 10.0f;
                 return result;
             case SLIDER.PHASE:
                 if(sliderUnused == 2)
-                    return phase;
+                    return correctPhase;
                 result = sliderInfo[2].min + (sliderInfo[2].max - sliderInfo[2].min) * Mathf.Clamp((sliderInfo[2].flipped ? (1 - phaSlider.CurrentValue) : phaSlider.CurrentValue), 0.0f, 1.0f);
                 result = Mathf.Round(result * 10.0f) / 10.0f;
                 return result;
@@ -202,4 +203,26 @@ public class WavePuzzle : MonoBehaviour {
         phase = sliderVal(SLIDER.PHASE);
         tellHacker();
     }
+
+    void OnTriggerStay(Collider collider){
+        if(collider.name.Equals("NVRPlayer")){
+            allowUpdate = true;
+            if(networker != null){
+                WaveformActionObject evt_pluggedin = new WaveformActionObject();
+                evt_pluggedin._event = "load-level";
+                evt_pluggedin.level = "puzzle-entry";
+                evt_pluggedin.amplitude = this.correctAmplitude;
+                evt_pluggedin.frequency = this.correctFrequency;
+                evt_pluggedin.phase = this.correctFrequency;
+                networker.ws.SendString(evt_pluggedin.getJSON());
+            }
+        }
+    }
+
+    void OnTriggerExit(Collider collider){
+        if(collider.name.Equals("NVRPlayer")){
+            allowUpdate = false;
+        }
+    }
+
 }

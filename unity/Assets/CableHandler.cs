@@ -20,7 +20,8 @@ public class CableHandler : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        connected.transform.position = this.GetComponent<BoxCollider>().center + this.transform.position;
+        if(connected != null)
+            connected.transform.position = this.GetComponent<BoxCollider>().center + this.transform.position;
     }
 
     public void OnTriggerEnter(Collider other)

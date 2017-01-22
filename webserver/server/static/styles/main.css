@@ -10,3 +10,28 @@
 #minimap-container {
     background: url('/static/images/grid_for_floors.png');
 }
+
+#full_map {
+    width: 100%;
+    height: 100%;
+}
+
+#minimap-container:hover {
+    -webkit-box-shadow: 5px 4px 12px 0px rgba(2, 172, 0, 0.74);
+    -moz-box-shadow:    5px 4px 12px 0px rgba(2, 172, 0, 0.74);
+    box-shadow:         5px 4px 12px 0px rgba(2, 172, 0, 0.74);
+}
+
+#table_grid {
+    background: url("https://image-gr.s3.envato.com/files/54632208/Blueprint-Preview.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#table_grid td div{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}

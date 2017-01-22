@@ -16,10 +16,10 @@ function loadEntryPuzzle(msg) {
 
     // Add callbacks
     addActionCallback('puzzle-entry-wave', manipulateWave);
-    addActionCallback('puzzle-entry-correct', function(msg){
+    addActionCallback('puzzle-entry-correct', function(msg) {
         var canvas = document.getElementById('waves'),
             ctx = canvas.getContext('2d');
-        ctx.clearRect(0,0,canvas.width, canvas.height);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
 
         passed();
 
@@ -98,3 +98,4 @@ function passed() {
         ]
     });
 }
+

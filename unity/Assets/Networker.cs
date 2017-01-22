@@ -3,8 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Networker : MonoBehaviour {
+
+    [System.Serializable]
+    public class MyEventType : UnityEvent{}
+    public MyEventType onConnected;
+
     public WebSocket ws;
 
 	// Use this for initialization
@@ -19,33 +25,7 @@ public class Networker : MonoBehaviour {
         Debug.Log(evt_str);
         ws.SendString(evt_str);
 
-        Thread.Sleep(1000);
-
-        WaveformActionObject evt_pluggedin = new WaveformActionObject();
-        evt_pluggedin._event = "load-level";
-        evt_pluggedin.level = "puzzle-entry";
-        evt_pluggedin.amplitude = 5.0f;
-        evt_pluggedin.frequency = 5.0f;
-        evt_pluggedin.phase = 5.0f;
-        ws.SendString(evt_pluggedin.getJSON());
-
-        Thread.Sleep(1000);
-
-        WaveformActionObject evt_update = new WaveformActionObject();
-        evt_update.level = "puzzle-entry-wave";
-        evt_update.amplitude = 5.0f;
-        evt_update.frequency = 5.0f;
-        evt_update.phase = 5.0f;
-        ws.SendString(evt_update.getJSON());
-
-        Thread.Sleep(1000);
-
-        WaveformActionObject evt_correct = new WaveformActionObject();
-        evt_correct.level = "puzzle-entry-correct";
-        evt_correct.amplitude = 5.0f;
-        evt_correct.frequency = 5.0f;
-        evt_correct.phase = 5.0f;
-        ws.SendString(evt_correct.getJSON());
+        onConnected.Invoke();
 
         // Receiver Loop
         while (true)

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public class WaveformActionObject : LoadLevelObject{
+public class WaveformActionObject : LoadLevelObject {
     public float amplitude;
     public float frequency;
     public float phase;

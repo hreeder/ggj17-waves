@@ -10,6 +10,8 @@ public class CableHandler : MonoBehaviour {
     public MyEventType onConnect;
     public MyEventType onCut;
 
+    public bool isConnected = false;
+
     private bool isCut = false;
     private GameObject connected;
 
@@ -49,6 +51,7 @@ public class CableHandler : MonoBehaviour {
                 connected = other.gameObject;
 
                 onConnect.Invoke();
+                isConnected = true;
             }
         }
     }

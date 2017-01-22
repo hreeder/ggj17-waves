@@ -13,7 +13,8 @@ class GameSocket(websocket.WebSocketHandler):
         self.events = {
             "start-game": self.start_game,
             "load-level": self.load_level,
-            "action": self.action
+            "action": self.action,
+            "play-sound": self.action
         }
 
         if self.application.ctxt.is_ready():

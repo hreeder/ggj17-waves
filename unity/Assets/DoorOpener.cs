@@ -57,8 +57,8 @@ public class DoorOpener : MonoBehaviour {
         {
             if (isOpen)
             {
-                door0.localPosition = door0Start - door0.right * (Mathf.Sin(timeDelta) * 0.3f + 0.3f);
-                door1.localPosition = door1Start - door1.right * (Mathf.Sin(timeDelta) * 0.3f + 0.3f);
+                door0.localPosition = door0Start - new Vector3(1,0,0) * (Mathf.Sin(timeDelta) * 0.3f + 0.3f);
+                door1.localPosition = door1Start + new Vector3(1,0,0) * (Mathf.Sin(timeDelta) * 0.3f + 0.3f);
                 timeDelta += Time.deltaTime;
 
                 if (timeDelta >= 1.0f)

@@ -198,10 +198,13 @@ public class WavePuzzle : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
+        float[] curr = {amplitude, frequency, phase};
         amplitude = sliderVal(SLIDER.AMPLITUDE);
         frequency = sliderVal(SLIDER.FREQUENCY);
         phase = sliderVal(SLIDER.PHASE);
-        tellHacker();
+
+        if(curr[0] != amplitude || curr[1] != frequency || curr[2] != phase)
+            tellHacker();
     }
 
     void OnTriggerStay(Collider collider){

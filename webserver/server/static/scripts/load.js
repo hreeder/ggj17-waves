@@ -21,11 +21,20 @@ $(function(){
     });
 
     addWebsocketCallback('start-game', function(data) {
-        $('#system-message').text("Connected");
-       getTemplate('started', function(tpl_src) {
-           var tpl = Handlebars.compile(tpl_src);
-           $('#main-area').html(tpl());
-       });
+      $('#system-message').text("Connected");
+      getTemplate('started', function(tpl_src) {
+        var tpl = Handlebars.compile(tpl_src);
+        $('#main-area').html(tpl());
+      });
+      getTemplate('sound-buttons', function(src) {
+          $('#sound-container').html(Handlebars.compile(src)());
+          $('.btn-sound').click(function() {
+              window.websocket.send(JSON.stringify({
+                  event: "play-sound",
+                  file: $(this).data('file')
+              }));
+          });
+      });
     });
 
     addWebsocketCallback('play-sound', function(data) {

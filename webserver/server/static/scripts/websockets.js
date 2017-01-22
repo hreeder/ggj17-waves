@@ -9,12 +9,8 @@ function startWebsocket() {
         console.log(data);
 
         if (data.event === "action") {
-            console.log("action callback");
-            console.log("level: " + data.level);
             var chain = actionCallbacks[data.level];
             if(typeof chain == 'undefined') return; // no callbacks for this event
-            console.log("dispatching action callback for " + data.level);
-            console.log(chain);
             for(var i = 0; i < chain.length; i++){
               chain[i](data);
             }
@@ -35,7 +31,6 @@ function addWebsocketCallback(event, callback) {
 }
 
 function addActionCallback(level, callback) {
-    console.log("adding callback for " + level);
     actionCallbacks[level] = actionCallbacks[level] || [];
     actionCallbacks[level].push(callback);
     return this;// chainable

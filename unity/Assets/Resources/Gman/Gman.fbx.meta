@@ -1,0 +1,199 @@
+fileFormatVersion: 2
+guid: 74a1074af087ce34991c829a4f490cba
+timeCreated: 1485085763
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Aerial
+    100002: Aerial.001
+    100004: Aerial.002
+    100006: Aerial.002_end
+    100008: arm_low.l
+    100010: arm_low.l_end
+    100012: arm_low.r
+    100014: arm_low.r_end
+    100016: Arm_up.l
+    100018: Arm_up.r
+    100020: Armature
+    100022: Body
+    100024: Body.001
+    100026: //RootNode
+    100028: Leg.l
+    100030: Leg.l.001
+    100032: Leg.l.002
+    100034: Leg.l.002_end
+    100036: Leg.r
+    100038: Leg.r.001
+    100040: Leg.r.002
+    100042: Leg.r.002_end
+    100044: Sphere_Sphere.001
+    400000: Aerial
+    400002: Aerial.001
+    400004: Aerial.002
+    400006: Aerial.002_end
+    400008: arm_low.l
+    400010: arm_low.l_end
+    400012: arm_low.r
+    400014: arm_low.r_end
+    400016: Arm_up.l
+    400018: Arm_up.r
+    400020: Armature
+    400022: Body
+    400024: Body.001
+    400026: //RootNode
+    400028: Leg.l
+    400030: Leg.l.001
+    400032: Leg.l.002
+    400034: Leg.l.002_end
+    400036: Leg.r
+    400038: Leg.r.001
+    400040: Leg.r.002
+    400042: Leg.r.002_end
+    400044: Sphere_Sphere.001
+    4300000: Sphere_Sphere.001
+    7400000: Armature|ArmatureAction
+    9500000: //RootNode
+    13700000: Sphere_Sphere.001
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Armature|ArmatureAction
+      takeName: Armature|ArmatureAction
+      firstFrame: 1
+      lastFrame: 40
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/Body
+        weight: 1
+      - path: Armature/Body/Arm_up.l
+        weight: 1
+      - path: Armature/Body/Arm_up.l/arm_low.l
+        weight: 1
+      - path: Armature/Body/Arm_up.l/arm_low.l/arm_low.l_end
+        weight: 1
+      - path: Armature/Body/Arm_up.r
+        weight: 1
+      - path: Armature/Body/Arm_up.r/arm_low.r
+        weight: 1
+      - path: Armature/Body/Arm_up.r/arm_low.r/arm_low.r_end
+        weight: 1
+      - path: Armature/Body/Body.001
+        weight: 1
+      - path: Armature/Body/Body.001/Aerial
+        weight: 1
+      - path: Armature/Body/Body.001/Aerial/Aerial.001
+        weight: 1
+      - path: Armature/Body/Body.001/Aerial/Aerial.001/Aerial.002
+        weight: 1
+      - path: Armature/Body/Body.001/Aerial/Aerial.001/Aerial.002/Aerial.002_end
+        weight: 1
+      - path: Armature/Body/Leg.l
+        weight: 1
+      - path: Armature/Body/Leg.l/Leg.l.001
+        weight: 1
+      - path: Armature/Body/Leg.l/Leg.l.001/Leg.l.002
+        weight: 1
+      - path: Armature/Body/Leg.l/Leg.l.001/Leg.l.002/Leg.l.002_end
+        weight: 1
+      - path: Armature/Body/Leg.r
+        weight: 1
+      - path: Armature/Body/Leg.r/Leg.r.001
+        weight: 1
+      - path: Armature/Body/Leg.r/Leg.r.001/Leg.r.002
+        weight: 1
+      - path: Armature/Body/Leg.r/Leg.r.001/Leg.r.002/Leg.r.002_end
+        weight: 1
+      - path: Sphere_Sphere.001
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 0.3
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

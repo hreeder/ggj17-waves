@@ -129,11 +129,6 @@ public class WavePuzzle : MonoBehaviour {
         evt_update.phase = this.phase;
         networker.ws.SendString(evt_update.getJSON());
 
-        Debug.Log("amplitude: "+ amplitude +" | "+ (Mathf.Abs(this.amplitude - this.correctAmplitude)/correctAmplitude < 0.1f));
-        Debug.Log("frequency: "+ frequency +" | "+ (Mathf.Abs(this.frequency - this.correctFrequency)/correctFrequency < 0.1f));
-        Debug.Log("phase: "+ phase +" | "+ (Mathf.Abs(this.phase - this.correctPhase)/correctPhase < 0.1f));
-        Debug.Log("");
-
 
         if (Mathf.Abs(this.amplitude - this.correctAmplitude)/correctAmplitude < 0.1f
             && Mathf.Abs(this.frequency - this.correctFrequency) / correctFrequency < 0.1f

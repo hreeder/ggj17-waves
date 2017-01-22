@@ -1,8 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class CableHandler : MonoBehaviour {
+
+    [System.Serializable]
+    public class MyEventType : UnityEvent{}
+    public MyEventType onConnect;
+    public MyEventType onCut;
 
     private bool isCut = false;
     private GameObject connected;
@@ -30,6 +36,7 @@ public class CableHandler : MonoBehaviour {
 
                 cableCut.SetActive(isCut);
                 cableSolid.SetActive(!isCut);
+                onCut.Invoke();
             }
         }
         else
@@ -39,6 +46,8 @@ public class CableHandler : MonoBehaviour {
                 other.GetComponent<Rigidbody>().isKinematic = true;
                 other.GetComponent<NewtonVR.NVRInteractableItem>().enabled = false;
                 connected = other.gameObject;
+
+                onConnect.Invoke();
             }
         }
     }

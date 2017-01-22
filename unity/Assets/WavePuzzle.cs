@@ -2,8 +2,14 @@
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class WavePuzzle : MonoBehaviour {
+
+
+    [System.Serializable]
+    public class MyEventType : UnityEvent{}
+    public MyEventType onCompleted;
 
 
     public Transform snap0;
@@ -55,9 +61,9 @@ public class WavePuzzle : MonoBehaviour {
 
     void Awake(){        
 
-        sliderInfo[0] = new SliderInfo(false, 1.0f, 4.0f); // Amplitude
-        sliderInfo[1] = new SliderInfo(false, 1.0f, 4.0f); // Frequency
-        sliderInfo[2] = new SliderInfo(false, 1.0f, 4.0f); // Phase
+        sliderInfo[0] = new SliderInfo(false, 1.0f, 8.0f); // Amplitude
+        sliderInfo[1] = new SliderInfo(false, 1.0f, 8.0f); // Frequency
+        sliderInfo[2] = new SliderInfo(false, 1.0f, 8.0f); // Phase
         
         correctAmplitude = Mathf.Round(Random.Range(sliderInfo[0].min, sliderInfo[0].max) * 10.0f) / 10.0f;
         correctFrequency = Mathf.Round(Random.Range(sliderInfo[1].min, sliderInfo[1].max) * 10.0f) / 10.0f;
@@ -141,7 +147,11 @@ public class WavePuzzle : MonoBehaviour {
             evt_correct.phase = this.correctPhase;
             networker.ws.SendString(evt_correct.getJSON());
 
+            // End puzzle
             this.isComplete = true;
+
+            onCompleted.Invoke();
+
             int numChildren = this.gameObject.transform.childCount;
             for(int i = 0; i < numChildren; i++){
                 Transform child = this.gameObject.transform.GetChild(i);

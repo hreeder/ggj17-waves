@@ -1,19 +1,17 @@
 function loadMapPuzzle(msg) {
-    getTemplate('puzzle-map', function (tpl_source) {
-        var tpl = Handlebars.compile(tpl_source);
-        $('#main-area').html(tpl());
-    });
+    // getTemplate('puzzle-map', function (tpl_source) {
+    //     var tpl = Handlebars.compile(tpl_source);
+    //     $('#main-area').html(tpl());
+    // });
 
-    $('#minimap-container').click(function () {
-        load_map(msg);
-    });
+    load_map(msg);
 
     addActionCallback('puzzle-map-update', manipulateMap);
 }
 
 function load_map(msg){
     create_table();
-
+    manipulateMap(msg)
 }
 
 //generate the table for the map
@@ -25,7 +23,7 @@ function create_table() {
         table_str += "<tr>";
 
         for (var j = 0; j < 15; j++) {
-            table_str += "<td><div id='" + i+"-"+j+ "'></div></div></td>";
+            table_str += "<td><div id='" + j+"-"+i+ "'></div></div></td>";
         }
         table_str += "</tr>";
     }
@@ -35,6 +33,7 @@ function create_table() {
 }
 
 function manipulateMap(msg){
-    $("td div").css('background','none');
-    $("#"+msg.x+"-"+msg.y).css('background','red');
+    //$("td div").css('background','none');
+    $("#"+msg.x1+"-"+msg.y1).css('background','red');
+    $("#"+msg.x2+"-"+msg.y2).css('background','red');
 }

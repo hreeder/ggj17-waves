@@ -115,13 +115,21 @@ public class WavePuzzle : MonoBehaviour {
     public void networkerConnected(Networker networker){
         this.networker = networker;
 
-        WaveformActionObject evt_pluggedin = new WaveformActionObject();
-        evt_pluggedin._event = "load-level";
-        evt_pluggedin.level = "puzzle-entry";
-        evt_pluggedin.amplitude = this.correctAmplitude;
-        evt_pluggedin.frequency = this.correctFrequency;
-        evt_pluggedin.phase = this.correctFrequency;
-        networker.ws.SendString(evt_pluggedin.getJSON());
+        GameObject cable = GameObject.Find("Cable");
+        if (cable != null)
+        {
+            CableHandler cbHandler = cable.GetComponent<CableHandler>();
+            if(cbHandler != null && cbHandler.isConnected)
+            {
+                WaveformActionObject evt_pluggedin = new WaveformActionObject();
+                evt_pluggedin._event = "load-level";
+                evt_pluggedin.level = "puzzle-entry";
+                evt_pluggedin.amplitude = this.correctAmplitude;
+                evt_pluggedin.frequency = this.correctFrequency;
+                evt_pluggedin.phase = this.correctFrequency;
+                networker.ws.SendString(evt_pluggedin.getJSON());
+            }
+        }
     }
 
     public void tellHacker()
@@ -211,6 +219,17 @@ public class WavePuzzle : MonoBehaviour {
         if(collider.name.Equals("NVRPlayer")){
             if(networker != null){
                 if(!allowUpdate){
+
+                    Debug.Log("test");
+                    GameObject cable = GameObject.Find("Cable");
+                    if (cable == null)
+                        return;
+                    Debug.Log("test1");
+                    CableHandler cbHandler = cable.GetComponent<CableHandler>();
+                    if (cbHandler == null || !cbHandler.isConnected)
+                        return;
+                    Debug.Log("test2");
+
                     WaveformActionObject evt_pluggedin = new WaveformActionObject();
                     evt_pluggedin._event = "load-level";
                     evt_pluggedin.level = "puzzle-entry";

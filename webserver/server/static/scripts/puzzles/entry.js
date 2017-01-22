@@ -24,21 +24,6 @@ function loadEntryPuzzle(msg) {
         passed();
 
         loadMinimap();
-        $('#minimap-container').click(function () {
-            getTemplate('full-map', function (tpl_source) {
-                var tpl = Handlebars.compile(tpl_source);
-                $('#main-area').html(tpl());
-            });
-
-            setTimeout(function () {
-                $('#full_map').animate({
-                    width: "100%"
-                }, 500, function() {
-                        $('#blueprint_img').maphilight({ stroke: false, fillColor: '009DDF', fillOpacity: 0.5 });
-                    }
-                );
-            }, 100);
-        });
     });
 }
 
@@ -114,6 +99,3 @@ function passed() {
     });
 }
 
-function minimap_click() {
-
-}

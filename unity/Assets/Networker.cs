@@ -31,12 +31,42 @@ public class Networker : MonoBehaviour {
         while (true)
         {
             string incoming = ws.RecvString();
+            if (incoming != null)
+            {
+                EventObject incEvt = JsonUtility.FromJson<EventObject>(incoming);
+                
+                switch (incEvt._event)
+                {
+                    case "action":
+                        // Deserialize the entire action
+                        HandleIncomingAction(incoming);
+                        break;
+                    default:
+                        Debug.Log("Received Unknown Event via WebSocket - " + incEvt._event);
+                        break;
+                }
+            }
             yield return 0;
         }
+        ws.Close();
     }
 	
 	// Update is called once per frame
 	void Update () {
 		
 	}
+
+    void HandleIncomingAction (string message) {
+        ActionObject incAction = JsonUtility.FromJson<ActionObject>(message);
+        switch (incAction.level)
+        {
+            case "puzzle-map-click":
+                GridClickAction gca = JsonUtility.FromJson<GridClickAction>(message);
+                Debug.Log("Grid clicked at " + gca.x + ", " + gca.y);
+                break;
+            default:
+                Debug.Log("Received Unknown Action - " + incAction.level);
+                break;
+        }
+    }
 }

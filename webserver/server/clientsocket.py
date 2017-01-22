@@ -11,7 +11,8 @@ class ClientSocket(websocket.WebSocketHandler):
         logger.debug("Client WebSocket opened")
         self.application.ctxt.client = self
         self.events = {
-            "DEBUG-reset": self.debug_reset
+            "DEBUG-reset": self.debug_reset,
+            "action": self.send_to_game
         }
 
         if self.application.ctxt.is_ready():
@@ -25,6 +26,7 @@ class ClientSocket(websocket.WebSocketHandler):
 
     def on_message(self, message):
         data = json.loads(message)
+        logger.debug(data)
         if "event" in data and data["event"] in self.events:
             event = data["event"]
             self.events[event](message)
@@ -35,3 +37,8 @@ class ClientSocket(websocket.WebSocketHandler):
     def debug_reset(self):
         self.application.ctxt.client = None
         self.close()
+
+    def send_to_game(self, message):
+        if self.application.ctxt.game:
+            message = message.replace("event", "_event")
+            self.application.ctxt.game.write_message(message)

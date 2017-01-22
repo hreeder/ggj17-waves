@@ -35,6 +35,8 @@ $(function(){
             $('#main-area').html(tpl());
             if (level === "puzzle-entry") {
                 loadEntryPuzzle(data);
+            } else if (level === "puzzle-map") {
+                loadMapPuzzle(data);
             }
         });
     });

@@ -13,7 +13,7 @@ public class DoorOpener : MonoBehaviour {
     private bool isOpen = false;
     private bool moving = false;
     private float timeDelta = 0.0f;
-
+AudioSource audio ;
 
     private NewtonVR.NVRButton inputInfo;
 
@@ -21,6 +21,8 @@ public class DoorOpener : MonoBehaviour {
     void Start () {
         door0Start = door0.localPosition;
         door1Start = door1.localPosition;
+
+        audio = GetComponentInChildren<AudioSource>();
 
         inputInfo = this.GetComponent<NewtonVR.NVRButton>();
     }
@@ -30,10 +32,12 @@ public class DoorOpener : MonoBehaviour {
         if (isOpen)
         {
             close();
+            audio.Play();
         }
         else
         {
             open();
+            audio.Play();
         }
     }
 

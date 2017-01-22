@@ -206,16 +206,18 @@ public class WavePuzzle : MonoBehaviour {
 
     void OnTriggerStay(Collider collider){
         if(collider.name.Equals("NVRPlayer")){
-            allowUpdate = true;
             if(networker != null){
-                WaveformActionObject evt_pluggedin = new WaveformActionObject();
-                evt_pluggedin._event = "load-level";
-                evt_pluggedin.level = "puzzle-entry";
-                evt_pluggedin.amplitude = this.correctAmplitude;
-                evt_pluggedin.frequency = this.correctFrequency;
-                evt_pluggedin.phase = this.correctFrequency;
-                networker.ws.SendString(evt_pluggedin.getJSON());
+                if(!allowUpdate){
+                    WaveformActionObject evt_pluggedin = new WaveformActionObject();
+                    evt_pluggedin._event = "load-level";
+                    evt_pluggedin.level = "puzzle-entry";
+                    evt_pluggedin.amplitude = this.correctAmplitude;
+                    evt_pluggedin.frequency = this.correctFrequency;
+                    evt_pluggedin.phase = this.correctFrequency;
+                    networker.ws.SendString(evt_pluggedin.getJSON());
+                }
             }
+            allowUpdate = true;
         }
     }
 

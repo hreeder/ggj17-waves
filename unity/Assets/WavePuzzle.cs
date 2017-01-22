@@ -6,6 +6,9 @@ using UnityEngine;
 public class WavePuzzle : MonoBehaviour {
 
 
+    public Transform snap0;
+    public Transform snap1;
+
     public float amplitude = 0.0f;
     public float frequency = 0.0f;
     public float phase = 0.0f;
@@ -13,7 +16,7 @@ public class WavePuzzle : MonoBehaviour {
     private bool isComplete = false;
 
     private Networker networker;
-    
+
 
     private enum SLIDER
     {
@@ -48,6 +51,43 @@ public class WavePuzzle : MonoBehaviour {
 
     private bool startedLevel;
 
+    private int sliderUnused = 0;
+
+    void Awake(){        
+
+        sliderInfo[0] = new SliderInfo(false, 1.0f, 4.0f); // Amplitude
+        sliderInfo[1] = new SliderInfo(false, 1.0f, 4.0f); // Frequency
+        sliderInfo[2] = new SliderInfo(false, 1.0f, 4.0f); // Phase
+        
+        correctAmplitude = Mathf.Round(Random.Range(sliderInfo[0].min, sliderInfo[0].max) * 10.0f) / 10.0f;
+        correctFrequency = Mathf.Round(Random.Range(sliderInfo[1].min, sliderInfo[1].max) * 10.0f) / 10.0f;
+        correctPhase = Mathf.Round(Random.Range(sliderInfo[2].min, sliderInfo[2].max) * 10.0f) / 10.0f;
+
+        sliderUnused = Random.Range(0, 3);
+        switch(sliderUnused){
+            case 0:
+                this.transform.FindChild("Amplitude").gameObject.SetActive(false);
+                amplitude = correctAmplitude;
+                this.transform.FindChild("Frequency").position = snap0.transform.position;
+                this.transform.FindChild("Phase").position = snap1.transform.position;
+
+                break;
+            case 1:
+                this.transform.FindChild("Frequency").gameObject.SetActive(false);
+                frequency = correctFrequency;
+                this.transform.FindChild("Phase").position = snap0.transform.position;
+                this.transform.FindChild("Amplitude").position = snap1.transform.position;
+                break;
+            case 2:
+                this.transform.FindChild("Phase").gameObject.SetActive(false);
+                phase = correctPhase;
+                this.transform.FindChild("Amplitude").position = snap0.transform.position;
+                this.transform.FindChild("Frequency").position = snap1.transform.position;
+                break;
+        }
+
+    }
+
     // Use this for initialization
     void Start () {
         startedLevel = false;
@@ -56,15 +96,6 @@ public class WavePuzzle : MonoBehaviour {
         freSlider = this.transform.FindChild("Frequency").FindChild("Slider").GetComponent<NewtonVR.NVRSlider>();
         phaSlider = this.transform.FindChild("Phase").FindChild("Slider").GetComponent<NewtonVR.NVRSlider>();
 
-        sliderInfo[0] = new SliderInfo(false, 1.0f, 4.0f); // Amplitude
-        sliderInfo[1] = new SliderInfo(false, 10.0f, 100.0f); // Frequency
-        sliderInfo[2] = new SliderInfo(false, 1.0f, 4.0f); // Phase
-
-        correctAmplitude = Random.Range(sliderInfo[0].min * 1.1f, sliderInfo[0].max * 0.9f);
-        correctFrequency = Random.Range(sliderInfo[1].min * 1.1f, sliderInfo[1].max * 0.9f);
-        correctPhase = Random.Range(sliderInfo[2].min * 1.1f, sliderInfo[2].max * 0.9f);
-
-        // networker = this.gameObject.transform.Find("Networker").GetComponent<Networker>();
 
         for (int i = 0; i < sliderInfo.Length; i++)
         {
@@ -98,6 +129,10 @@ public class WavePuzzle : MonoBehaviour {
         evt_update.phase = this.phase;
         networker.ws.SendString(evt_update.getJSON());
 
+        Debug.Log("amplitude: "+ amplitude +" | "+ (Mathf.Abs(this.amplitude - this.correctAmplitude)/correctAmplitude < 0.1f));
+        Debug.Log("frequency: "+ frequency +" | "+ (Mathf.Abs(this.frequency - this.correctFrequency)/correctFrequency < 0.1f));
+        Debug.Log("phase: "+ phase +" | "+ (Mathf.Abs(this.phase - this.correctPhase)/correctPhase < 0.1f));
+        Debug.Log("");
 
 
         if (Mathf.Abs(this.amplitude - this.correctAmplitude)/correctAmplitude < 0.1f
@@ -115,9 +150,13 @@ public class WavePuzzle : MonoBehaviour {
             int numChildren = this.gameObject.transform.childCount;
             for(int i = 0; i < numChildren; i++){
                 Transform child = this.gameObject.transform.GetChild(i);
-                Transform slider = child.Find("Slider");
-                Rigidbody rb = slider.GetComponent<Rigidbody>();
-                rb.constraints = RigidbodyConstraints.FreezeAll;
+                if(child.gameObject.activeSelf){
+                    Transform slider = child.Find("Slider");
+                    if(slider != null){
+                        Rigidbody rb = slider.GetComponent<Rigidbody>();
+                        rb.constraints = RigidbodyConstraints.FreezeAll;
+                    }
+                }
             }
         }
         
@@ -125,14 +164,27 @@ public class WavePuzzle : MonoBehaviour {
 
     private float sliderVal(SLIDER s)
     {
+        float result = 0.0f;
         switch (s)
         {
             case SLIDER.AMPLITUDE:
-                return sliderInfo[0].min + (sliderInfo[0].max - sliderInfo[0].min) * Mathf.Clamp((sliderInfo[0].flipped ? (1 - ampSlider.CurrentValue) : ampSlider.CurrentValue), 0.0f, 1.0f);
+                if(sliderUnused == 0)
+                    return amplitude;
+                result = sliderInfo[0].min + (sliderInfo[0].max - sliderInfo[0].min) * Mathf.Clamp((sliderInfo[0].flipped ? (1 - ampSlider.CurrentValue) : ampSlider.CurrentValue), 0.0f, 1.0f);
+                result = Mathf.Round(result * 10.0f) / 10.0f;
+                return result;
             case SLIDER.FREQUENCY:
-                return sliderInfo[1].min + (sliderInfo[1].max - sliderInfo[1].min) * Mathf.Clamp((sliderInfo[1].flipped ? (1 - freSlider.CurrentValue) : freSlider.CurrentValue), 0.0f, 1.0f);
+                if(sliderUnused == 1)
+                    return frequency;
+                result = sliderInfo[1].min + (sliderInfo[1].max - sliderInfo[1].min) * Mathf.Clamp((sliderInfo[1].flipped ? (1 - freSlider.CurrentValue) : freSlider.CurrentValue), 0.0f, 1.0f);
+                result = Mathf.Round(result * 10.0f) / 10.0f;
+                return result;
             case SLIDER.PHASE:
-                return sliderInfo[2].min + (sliderInfo[2].max - sliderInfo[2].min) * Mathf.Clamp((sliderInfo[2].flipped ? (1 - phaSlider.CurrentValue) : phaSlider.CurrentValue), 0.0f, 1.0f);
+                if(sliderUnused == 2)
+                    return phase;
+                result = sliderInfo[2].min + (sliderInfo[2].max - sliderInfo[2].min) * Mathf.Clamp((sliderInfo[2].flipped ? (1 - phaSlider.CurrentValue) : phaSlider.CurrentValue), 0.0f, 1.0f);
+                result = Mathf.Round(result * 10.0f) / 10.0f;
+                return result;
         }
         return 0;
     }

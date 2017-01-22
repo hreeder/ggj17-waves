@@ -34,6 +34,12 @@ function create_table() {
     $('#table_grid td').click(function(){
         var coordinates = $(this).find('div').attr('id').split('-');
         console.log("x: " + coordinates[0] + " y: " + coordinates[1]);
+        window.websocket.send(JSON.stringify({
+            event: "action",
+            level: "puzzle-map-click",
+            x: coordinates[0],
+            y: coordinates[1]
+        }));
     })
 }
 

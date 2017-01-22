@@ -1,18 +1,28 @@
-function loadMapPuzzle(msg) {
+function loadMapPuzzle() {
     // getTemplate('puzzle-map', function (tpl_source) {
     //     var tpl = Handlebars.compile(tpl_source);
     //     $('#main-area').html(tpl());
     // });
 
-    load_map(msg);
+    
+    console.log("loadMapPuzzle");
+    addActionCallback('puzzle-map-update', function(msg){
+        console.log("manipulateMap");
+        $("td div").removeClass('enemy');
+        $("#"+msg.x1+"-"+msg.y1).addClass('enemy');
+        $("#"+msg.x2+"-"+msg.y2).addClass('enemy');
+        (function runEffect(){
+            $('.enemy').effect("pulsate", {easing:"linear", times:1}, 1000, runEffect);
+        })();
+    });
 
-    addActionCallback('puzzle-map-update', manipulateMap);
+    load_map();
 }
 
-function load_map(msg){
+function load_map(){
     create_table();
     // create_canvas();
-    manipulateMap(msg)
+    // manipulateMap(msg)
 }
 
 //generate the table for the map
@@ -44,12 +54,13 @@ function create_table() {
 }
 
 function manipulateMap(msg){
+    console.log("manipulateMap");
     $("td div").removeClass('enemy');
     $("#"+msg.x1+"-"+msg.y1).addClass('enemy');
     $("#"+msg.x2+"-"+msg.y2).addClass('enemy');
-    (function runEffect(){
-        $('.enemy').effect("pulsate", {easing:"linear", times:1}, 1000, runEffect);
-    })();
+    // (function runEffect(){
+    //     $('.enemy').effect("pulsate", {easing:"linear", times:1}, 1000, runEffect);
+    // })();
 }
 
 function create_canvas() {

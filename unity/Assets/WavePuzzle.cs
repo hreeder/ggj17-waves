@@ -163,9 +163,9 @@ public class WavePuzzle : MonoBehaviour {
             onCompleted.Invoke();
 
             GameObject gman0 = GameObject.Find("Gman");
-            gman0.GetComponent<NavMeshAgent>().speed *= 1.1f;
+            gman0.GetComponent<NavMeshAgent>().speed *= 1.75f;
             GameObject gman1 = GameObject.Find("Gman (1)");
-            gman1.GetComponent<NavMeshAgent>().speed *= 1.1f;
+            gman1.GetComponent<NavMeshAgent>().speed *= 1.75f;
             
             int numChildren = this.gameObject.transform.childCount;
             for(int i = 0; i < numChildren; i++){

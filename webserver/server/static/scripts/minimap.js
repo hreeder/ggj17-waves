@@ -7,6 +7,7 @@ function loadMinimap() {
     getTemplate('puzzle-map', function (map_src) {
         var map_tpl = Handlebars.compile(map_src);
         $('#main-area').html(map_tpl());
-
+        console.log("mainarea map")
+        loadMapPuzzle();
     });
 };

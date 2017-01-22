@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class MapUpdater : MonoBehaviour {
 
-    private Networker networker;
+    private Networker networker = null;
     public GameObject gman0;
     public GameObject gman1;
 
-    private int step = 0;
 
     bool hasStarted = false;
 
@@ -23,29 +22,26 @@ public class MapUpdater : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        if(networker != null && hasStarted){
+        if(networker != null && !hasStarted){
             LoadMapLevelObject evt_loadMap = new LoadMapLevelObject();
             evt_loadMap._event = "load-level";
             evt_loadMap.level = "puzzle-map";
-            evt_loadMap.x1 = (int)(gman0.transform.position.x / 6);
-            evt_loadMap.y1 = (int)(gman0.transform.position.z / 6);
-            evt_loadMap.x2 = (int)(gman1.transform.position.x / 6);
-            evt_loadMap.y2 = (int)(gman1.transform.position.z / 6);
+            evt_loadMap.x1 = (int)Mathf.Floor(gman0.transform.position.x / 6.0f)+1;
+            evt_loadMap.y1 = (int)Mathf.Floor(gman0.transform.position.z / 6.0f)+1;
+            evt_loadMap.x2 = (int)Mathf.Floor(gman1.transform.position.x / 6.0f)+1;
+            evt_loadMap.y2 = (int)Mathf.Floor(gman1.transform.position.z / 6.0f)+1;
             networker.ws.SendString(evt_loadMap.getJSON());
 
             hasStarted = true;
         }
-
-        if(step % 10 == 0) {
+        if(hasStarted) {
             LoadMapLevelObject evt_loadMap = new LoadMapLevelObject();
-            evt_loadMap.x1 = (int)(gman0.transform.position.x / 6);
-            evt_loadMap.y1 = (int)(gman0.transform.position.z / 6);
-            evt_loadMap.x2 = (int)(gman1.transform.position.x / 6);
-            evt_loadMap.y2 = (int)(gman1.transform.position.z / 6);
+            evt_loadMap.x1 = (int)Mathf.Floor(gman0.transform.position.x / 6.0f)+1;
+            evt_loadMap.y1 = (int)Mathf.Floor(gman0.transform.position.z / 6.0f)+1;
+            evt_loadMap.x2 = (int)Mathf.Floor(gman1.transform.position.x / 6.0f)+1;            
+            evt_loadMap.y2 = (int)Mathf.Floor(gman1.transform.position.z / 6.0f)+1;
             networker.ws.SendString(evt_loadMap.getJSON());
-
-            step = 1;
         }
-        step++;
+        
     }
 }

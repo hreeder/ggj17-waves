@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using System.Threading;
+using UnityEngine.SceneManagement;
 
 public class EnemyNav : MonoBehaviour {
 
 	public Transform target;
 	public NavMeshAgent nav;
+	public GameObject death;
 
 	// Use this for initialization
 	void Start () {
@@ -21,4 +24,12 @@ public class EnemyNav : MonoBehaviour {
 		if(target != null)
 			nav.SetDestination(target.position);
     }
+
+	void OnTriggerEnter(Collider collider){
+		if(collider.name.Equals("Head")){
+			death.SetActive(true);
+			SceneManager.LoadScene("FirstRoom");
+		}
+	}
+
 }

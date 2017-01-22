@@ -44,9 +44,12 @@ function create_table() {
 }
 
 function manipulateMap(msg){
-    //$("td div").css('background','none');
+    $("td div").removeClass('enemy');
     $("#"+msg.x1+"-"+msg.y1).addClass('enemy');
     $("#"+msg.x2+"-"+msg.y2).addClass('enemy');
+    (function runEffect(){
+        $('.enemy').effect("pulsate", {easing:"linear", times:1}, 1000, runEffect);
+    })();
 }
 
 function create_canvas() {

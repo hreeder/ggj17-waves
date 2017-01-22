@@ -198,24 +198,29 @@ public class WavePuzzle : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
+        float[] curr = {amplitude, frequency, phase};
         amplitude = sliderVal(SLIDER.AMPLITUDE);
         frequency = sliderVal(SLIDER.FREQUENCY);
         phase = sliderVal(SLIDER.PHASE);
-        tellHacker();
+
+        if(curr[0] != amplitude || curr[1] != frequency || curr[2] != phase)
+            tellHacker();
     }
 
     void OnTriggerStay(Collider collider){
         if(collider.name.Equals("NVRPlayer")){
-            allowUpdate = true;
             if(networker != null){
-                WaveformActionObject evt_pluggedin = new WaveformActionObject();
-                evt_pluggedin._event = "load-level";
-                evt_pluggedin.level = "puzzle-entry";
-                evt_pluggedin.amplitude = this.correctAmplitude;
-                evt_pluggedin.frequency = this.correctFrequency;
-                evt_pluggedin.phase = this.correctFrequency;
-                networker.ws.SendString(evt_pluggedin.getJSON());
+                if(!allowUpdate){
+                    WaveformActionObject evt_pluggedin = new WaveformActionObject();
+                    evt_pluggedin._event = "load-level";
+                    evt_pluggedin.level = "puzzle-entry";
+                    evt_pluggedin.amplitude = this.correctAmplitude;
+                    evt_pluggedin.frequency = this.correctFrequency;
+                    evt_pluggedin.phase = this.correctFrequency;
+                    networker.ws.SendString(evt_pluggedin.getJSON());
+                }
             }
+            allowUpdate = true;
         }
     }
 
